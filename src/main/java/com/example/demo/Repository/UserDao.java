@@ -1,8 +1,12 @@
 package com.example.demo.Repository;
 
 import com.example.demo.Model.UserModel;
+import com.example.demo.exception.ApiRequestException;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +14,6 @@ import java.util.List;
 
 @Repository
 public class UserDao {
-
 
     private static List<UserModel> users = new ArrayList<>();
     private static int userCount = 3;
@@ -26,11 +29,12 @@ public class UserDao {
     }
 
     public UserModel findOne(int id) {
+
         for (var user : users) {
             if (user.getId() == id)
                 return user;
         }
-        return null;
+        throw new ApiRequestException(HttpStatus.NOT_FOUND, "User Not Found");
     }
 
     public UserModel saveOne(UserModel user) {
