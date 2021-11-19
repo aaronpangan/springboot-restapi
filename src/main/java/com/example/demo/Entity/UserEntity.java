@@ -1,14 +1,19 @@
-package com.example.demo.Model;
+package com.example.demo.Entity;
 
 import java.util.Date;
 
-public class UserModel {
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+public class UserEntity {
 
     Integer id;
+    @NotNull
+    @Size(min = 2, max = 10, message = "Must me minimum of 2 characters and maximum of 10")
     String name;
     private Date birthDate;
 
-    public UserModel(Integer id, String name, Date birthDate) {
+    public UserEntity(Integer id, String name, Date birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -40,10 +45,6 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return "UserModel{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", birthDate=" + birthDate +
-               '}';
+        return "UserModel{" + "id=" + id + ", name='" + name + '\'' + ", birthDate=" + birthDate + '}';
     }
 }
