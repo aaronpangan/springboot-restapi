@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.Controller;
 
 import com.example.demo.Entity.UserEntity;
 import com.example.demo.Repository.UserDao;
@@ -20,6 +20,7 @@ public class UserController {
 
     @GetMapping(path = "/getall")
     public List<UserEntity> getAll() {
+        
         return userDao.findAll();
     }
 

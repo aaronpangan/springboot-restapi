@@ -4,7 +4,6 @@ import com.example.demo.Entity.UserEntity;
 import com.example.demo.exception.ApiRequestException;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.hateoas.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -29,12 +28,11 @@ public class UserDao {
     public UserEntity findById(int id) {
 
         for (var user : users) {
-            if (user.getId() == id){
-
+            if (user.getId() == id) {
                 return user;
             }
         }
-        
+
         throw new ApiRequestException("User Not Found");
     }
 

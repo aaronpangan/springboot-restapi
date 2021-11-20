@@ -38,9 +38,9 @@ public class ExceptionBuilder extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
-
+        var validationMessage = ex.getBindingResult().toString().split(";");
         ExceptionResponse exceptionResponse = new ExceptionResponse(ZonedDateTime.now(ZoneId.of("Z")),
-                "Validation Failed", ex.getBindingResult().toString());
+                "Validation Failed", validationMessage[validationMessage.length - 1]);
         return new ResponseEntity<Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 

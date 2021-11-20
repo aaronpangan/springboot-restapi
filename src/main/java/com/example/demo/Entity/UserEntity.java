@@ -3,14 +3,25 @@ package com.example.demo.Entity;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "User description")
 public class UserEntity {
 
     Integer id;
+
+    
     @NotNull
-    @Size(min = 2, max = 10, message = "Must me minimum of 2 characters and maximum of 10")
+    @Size(min = 2, max = 10, message = "Must be minimum of 2 characters and maximum of 10")
+    @ApiModelProperty(notes = "Must be minimum of 2 characters and maximum of 10")
     String name;
+ 
+    @Past
+    @ApiModelProperty(notes = "Must be past Date.")
     private Date birthDate;
 
     public UserEntity(Integer id, String name, Date birthDate) {
