@@ -14,12 +14,11 @@ public class UserEntity {
 
     Integer id;
 
-    
     @NotNull
     @Size(min = 2, max = 10, message = "Must be minimum of 2 characters and maximum of 10")
     @ApiModelProperty(notes = "Must be minimum of 2 characters and maximum of 10")
     String name;
- 
+
     @Past
     @ApiModelProperty(notes = "Must be past Date.")
     private Date birthDate;

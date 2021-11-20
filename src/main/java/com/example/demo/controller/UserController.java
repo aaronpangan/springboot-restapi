@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping(path = "/getall")
     public List<UserEntity> getAll() {
-        
+
         return userDao.findAll();
     }
 
