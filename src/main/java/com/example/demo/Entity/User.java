@@ -2,9 +2,14 @@ package com.example.demo.Entity;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,6 +29,9 @@ public class User {
 
     @ApiModelProperty(notes = "Must be past String.")
     private String address;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> post;
 
     public User() {
 
@@ -50,12 +58,21 @@ public class User {
         this.name = name;
     }
 
-    public String getaddress() {
-        return address;
+
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setaddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Post> getPost() {
+        return this.post;
+    }
+
+    public void setPost(List<Post> post) {
+        this.post = post;
     }
 
     @Override
