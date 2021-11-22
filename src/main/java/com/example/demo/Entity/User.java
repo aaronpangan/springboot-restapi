@@ -1,17 +1,20 @@
 package com.example.demo.Entity;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "User description")
-public class UserEntity {
+@Entity
+public class User {
 
+    @Id
+    @GeneratedValue
     Integer id;
 
     @NotNull
@@ -19,14 +22,16 @@ public class UserEntity {
     @ApiModelProperty(notes = "Must be minimum of 2 characters and maximum of 10")
     String name;
 
-    @Past
-    @ApiModelProperty(notes = "Must be past Date.")
-    private Date birthDate;
+    @ApiModelProperty(notes = "Must be past String.")
+    private String address;
 
-    public UserEntity(Integer id, String name, Date birthDate) {
-        this.id = id;
+    public User() {
+
+    }
+
+    public User(String name, String address) {
         this.name = name;
-        this.birthDate = birthDate;
+        this.address = address;
     }
 
     public Integer getId() {
@@ -45,16 +50,16 @@ public class UserEntity {
         this.name = name;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getaddress() {
+        return address;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setaddress(String address) {
+        this.address = address;
     }
 
     @Override
     public String toString() {
-        return "UserModel{" + "id=" + id + ", name='" + name + '\'' + ", birthDate=" + birthDate + '}';
+        return "UserModel{" + "id=" + id + ", name='" + name + '\'' + ", address=" + address + '}';
     }
 }

@@ -1,13 +1,15 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
-import com.example.demo.Entity.UserEntity;
-import com.example.demo.Repository.UserDao;
+import com.example.demo.Entity.User;
+import com.example.demo.Services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -16,29 +18,32 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @GetMapping(path = "/getall")
-    public List<UserEntity> getAll() {
+    public List<User> getAll() {
 
-        return userDao.findAll();
+        return userService.findAll();
     }
 
     @GetMapping(path = "/get/{id}")
-    public UserEntity getOne(@PathVariable int id) {
-        return userDao.findById(id);
+    public Optional<User> getOne(@PathVariable int id) {
+        return userService.findById(id);
 
     }
 
     @PostMapping(path = "/add")
 
-    public ResponseEntity<UserEntity> addUser(@Valid @RequestBody UserEntity user) {
-        return new ResponseEntity<UserEntity>(userDao.saveOne(user), HttpStatus.CREATED);
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
+        return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/delete/{id}")
 
-    public ResponseEntity<UserEntity> deleteUser(@PathVariable int id) {
-        return new ResponseEntity<UserEntity>(userDao.deleteById(id), HttpStatus.NO_CONTENT);
+    public ResponseEntity deleteUser(@PathVariable int id) {
+
+            userService.deleteOne(id);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
