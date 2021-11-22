@@ -3,6 +3,8 @@ package com.example.demo.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,13 +24,14 @@ public class User {
     Integer id;
 
     @NotNull
-    @Size(min = 2, max = 10, message = "Must be minimum of 2 characters and maximum of 10")
+    @Size(min = 2, max = 20, message = "Must be minimum of 2 characters and maximum of 10")
     @ApiModelProperty(notes = "Must be minimum of 2 characters and maximum of 10")
     String name;
 
     @ApiModelProperty(notes = "Must be past String.")
     private String address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Post> post;
 
@@ -56,7 +59,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getAddress() {
         return this.address;
