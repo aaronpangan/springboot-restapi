@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.Controller;
 
 import com.example.demo.Entity.User;
 import com.example.demo.Services.UserService;
@@ -42,7 +42,7 @@ public class UserController {
 
     public ResponseEntity deleteUser(@PathVariable int id) {
 
-            userService.deleteOne(id);
+        userService.deleteOne(id);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
