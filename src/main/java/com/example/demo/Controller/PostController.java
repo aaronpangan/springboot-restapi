@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,9 +48,15 @@ public class PostController {
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity DeletePost(@PathVariable int id) {
 
-    postService.deletePost(id);
+        postService.deletePost(id);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(path = "/update/{userid}/{postid}")
+    public Post UpdatePost(@RequestBody Post post, @PathVariable int userid, @PathVariable int postid) {
+
+        return postService.updatePost(post, userid, postid);
     }
 
 }

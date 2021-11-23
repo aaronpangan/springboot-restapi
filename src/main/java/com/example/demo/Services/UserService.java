@@ -24,10 +24,10 @@ public class UserService {
 
         Optional<User> user = userRepository.findById(id);
 
-        if (user.isPresent())
-            return user;
-
+        if (!user.isPresent())
         throw new ApiRequestException("User Not Found");
+
+        return user;
     }
 
     public User save(User user) {

@@ -6,7 +6,6 @@ import java.util.Optional;
 import com.example.demo.Entity.Post;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.PostRepository;
-import com.example.demo.Repository.UserRepository;
 import com.example.demo.exception.ApiRequestException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class PostService {
     PostRepository postRepository;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     public List<Post> getAllPost() {
 
@@ -28,12 +27,7 @@ public class PostService {
 
     public Post createPost(int id, Post post) {
 
-        Optional<User> findUser = userRepository.findById(id);
-
-        if (!findUser.isPresent())
-            throw new ApiRequestException("User Not Found");
-
-        User user = findUser.get();
+        User user = userService.findById(id).get();
 
         post.setUser(user);
 
@@ -51,7 +45,7 @@ public class PostService {
         return post.get();
     }
 
-    public void deletePost(int id){
+    public void deletePost(int id) {
 
         Optional<Post> post = postRepository.findById(id);
 
@@ -59,5 +53,23 @@ public class PostService {
             throw new ApiRequestException("Post Not Found");
 
         postRepository.deleteById(id);
+    }
+
+    public Post updatePost(Post post, int userid, int postid) {
+
+        // Check if user exist
+        Optional<User> user = userService.findById(userid);
+
+        // Check if post exist
+        Post findPost = getPost(postid);
+
+        // Check if the user id match the foreign user id on post entity
+        if (user.get().getId() != findPost.getUser().getId())
+            throw new ApiRequestException("Post Not Yours");
+
+        findPost.setDescription(post.getDescription());
+
+        postRepository.save(findPost);
+        return findPost;
     }
 }
